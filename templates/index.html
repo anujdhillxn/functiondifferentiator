@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Function differentiator</title>
+    <style>
+        body {
+            font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+            text-align: center;
+        }
+
+        li {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        async function differentiate() {
+            const input = document.getElementById("input").value;
+            const response = await fetch(window.location.href + "/process", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(input)
+            });
+            const data = await response.json();
+            document.getElementById("valid").innerHTML = data.valid ? "" : "Invalid expression."
+            document.getElementById("output").value = data.output;
+        }</script>
+    <div class="container">
+        <h1>Function differentiator</h1>
+
+        <p> <span>Input: </span><input type="text" name="input" id="input" /></p>
+        <p id="valid"></p>
+
+        <p> <span>Output: </span><input type="text" name="output" id="output" readonly /></p>
+        <button onClick="differentiate()">Differentiate input expression.</button>
+        <div>
+            <h3>Instructions</h3>
+            <ul class="instructions">
+                <li>Function should be valid.</li>
+                <li>Function can contain +, -, *, /, ^, ln, sin and cos operators only.</li>
+                <li>Examples- x+3, 1/x, sin(cos(x)), ln(x^2 + 4*x)/x^3
+                </li>
+            </ul>
+            <div class="examples">
+            </div>
+        </div>
+    </div>
+</body>
