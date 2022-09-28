@@ -20,4 +20,4 @@ def process():
     return jsonify({"output": output, "valid": valid})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
